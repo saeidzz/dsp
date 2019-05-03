@@ -1,0 +1,576 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Runner.java</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<style type="text/css">
+<!--
+body {color: #a9b7c6; background-color: #2b2b2b; font-family: Monospaced; font-weight: bold}
+pre {color: #a9b7c6; background-color: #2b2b2b; font-family: Monospaced; font-weight: bold}
+table {color: #888888; background-color: #313335; font-family: Monospaced; font-weight: bold}
+.ST2 {color: #8a653b}
+.comment {color: #00ff00}
+.whitespace {color: #505050}
+.ST0 {color: #808080}
+.ST1 {color: #9876aa; font-family: Monospaced; font-weight: bold; font-style: italic}
+.ST3 {color: #ffc66d; font-family: Monospaced; font-weight: bold; font-style: italic}
+.string {color: #6a8759}
+.number {color: #6897bb}
+.ST5 {color: #9876aa}
+.ST4 {font-family: Monospaced; font-weight: bold; font-style: italic}
+.literal {color: #cc7832}
+-->
+</style>
+</head>
+<body>
+<table width="100%"><tr><td align="center">C:\Users\saeid\Documents\NetBeansProjects\dsProject\src\dsproject\Runner.java</td></tr></table>
+<pre>
+  1 <span class="comment">/*</span>
+  2 <span class="comment"> * To change this license header, choose License Headers in Project Properties.</span>
+  3 <span class="comment"> * To change this template file, choose Tools | Templates</span>
+  4 <span class="comment"> * and open the template in the editor.</span>
+  5 <span class="comment"> */</span>
+  6 
+  7 <span class="literal">package</span> dsproject;
+  8 
+  9 
+ 10 <span class="literal">import</span> java.io.File;
+ 11 <span class="literal">import</span> java.io.FileOutputStream;
+ 12 <span class="literal">import</span> java.io.FileWriter;
+ 13 <span class="literal">import</span> java.io.IOException;
+ 14 <span class="literal">import</span> java.nio.charset.StandardCharsets;
+ 15 <span class="literal">import</span> java.nio.file.Files;
+ 16 <span class="ST0">import</span> <span class="ST0">java</span><span class="ST0">.</span><span class="ST0">nio</span><span class="ST0">.</span><span class="ST0">file</span><span class="ST0">.</span><span class="ST0">Path</span><span class="ST0">;</span>
+ 17 <span class="literal">import</span> java.nio.file.Paths;
+ 18 <span class="ST0">import</span> <span class="ST0">java</span><span class="ST0">.</span><span class="ST0">util</span><span class="ST0">.</span><span class="ST0">ArrayList</span><span class="ST0">;</span>
+ 19 <span class="literal">import</span> java.util.Arrays;
+ 20 <span class="literal">import</span> java.util.List;
+ 21 <span class="literal">import</span> java.util.Scanner;
+ 22 
+ 23 
+ 24 <span class="comment">/**</span>
+ 25 <span class="comment"> *</span>
+ 26 <span class="comment"> * </span><span class="comment">@author</span> <span class="comment">saeid</span> <span class="comment">zangeneh</span>
+ 27  <span class="comment">*/</span>
+ 28 <span class="literal">public</span> <span class="literal">class</span> Runner {
+ 29 
+ 30 
+ 31     <span class="literal">public</span> <span class="literal">static</span> List&lt;String&gt; <span class="ST1">us</span>;
+ 32 
+ 33 
+ 34     <span class="comment">/**</span>
+ 35 <span class="comment">     * </span><span class="comment">@param</span> <span class="ST2">args</span> <span class="comment">the</span> <span class="comment">command</span> <span class="comment">line</span> <span class="comment">arguments</span>
+ 36      <span class="comment">*/</span>
+ 37     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">main</span>(String[] args) <span class="literal">throws</span> IOException {
+ 38         <span class="ST4">run</span>();
+ 39 
+ 40     }
+ 41     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">run</span>() <span class="literal">throws</span> NumberFormatException, IOException {
+ 42         <span class="comment">// TODO code application logic here</span>
+ 43         <span class="ST4">fileCleaner</span>();
+ 44         Scanner scnIn = <span class="literal">new</span> Scanner(System.<span class="ST1">in</span>);
+ 45 
+ 46         System.<span class="ST1">out</span>.println(
+ 47                 <span class="string">&quot;</span><span class="string">please select one of the options:</span><span class="string">&quot;</span>
+ 48                 + <span class="string">&quot;</span><span class="literal">\n</span><span class="string">1-signUp new user</span><span class="string">&quot;</span>
+ 49                 + <span class="string">&quot;</span><span class="literal">\n</span><span class="string">2-login</span><span class="string">&quot;</span>
+ 50                 + <span class="string">&quot;</span><span class="literal">\n</span><span class="string">3-delete user</span><span class="string">&quot;</span>
+ 51                 + <span class="string">&quot;</span><span class="literal">\n</span><span class="string">4-count votes</span><span class="string">&quot;</span>
+ 52                 + <span class="string">&quot;</span><span class="literal">\n</span><span class="string">5-search by user</span><span class="string">&quot;</span>
+ 53                 + <span class="string">&quot;</span><span class="literal">\n</span><span class="string">6-find all occurrences</span><span class="string">&quot;</span>
+ 54                 + <span class="string">&quot;</span><span class="literal">\n</span><span class="string">7-search qoute by id</span><span class="string">&quot;</span>
+ 55                 + <span class="string">&quot;</span><span class="literal">\n</span><span class="string">8-search by author</span><span class="string">&quot;</span>
+ 56                 + <span class="string">&quot;</span><span class="literal">\n</span><span class="string">9-top qoutes</span><span class="string">&quot;</span>
+ 57                 + <span class="string">&quot;</span><span class="literal">\n</span><span class="string">10-most recent qoutes</span><span class="string">&quot;</span>
+ 58         );
+ 59         <span class="literal">int</span> input = scnIn.nextInt();
+ 60 
+ 61         <span class="ST4">afterRun</span>(input, scnIn);
+ 62     }
+ 63     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">afterRun</span>(<span class="literal">int</span> input, Scanner scnIn) <span class="literal">throws</span> IOException, NumberFormatException {
+ 64         <span class="ST4">fileCleaner</span>();
+ 65         <span class="literal">if</span> (input == <span class="number">1</span>) {
+ 66             <span class="comment">//sign up=creating new user</span>
+ 67             System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">please enter the username :</span><span class="string">&quot;</span>);
+ 68             String userName = scnIn.next();
+ 69             User u = <span class="literal">new</span> User(userName);
+ 70             String latestUserId = <span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(<span class="string">&quot;</span><span class="string">latestUserId.txt</span><span class="string">&quot;</span>)), StandardCharsets.<span class="ST1">UTF_8</span>);
+ 71             u.setUserId(Integer.<span class="ST4">parseInt</span>(latestUserId)+<span class="number">1</span>);
+ 72             System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">congrajulation you are signed up and your id is:</span><span class="string">&quot;</span> + (Integer.<span class="ST4">parseInt</span>(latestUserId) + <span class="number">1</span>));
+ 73             File f=<span class="literal">new</span> File(<span class="string">&quot;</span><span class="string">users</span><span class="literal">\\</span><span class="string">&quot;</span>+u.getUserId()+<span class="string">&quot;</span><span class="string">.txt</span><span class="string">&quot;</span>);
+ 74             FileOutputStream fout=<span class="literal">new</span> FileOutputStream(f);
+ 75             <span class="literal">byte</span>[] b=<span class="string">&quot;</span><span class="string">==</span><span class="string">&quot;</span>.getBytes();
+ 76             fout.write(b);
+ 77             fout.close();
+ 78        
+ 79             <span class="comment">///saving new user id in the file</span>
+ 80             FileWriter fw = <span class="literal">new</span> FileWriter(<span class="string">&quot;</span><span class="string">latestUserId.txt</span><span class="string">&quot;</span>);
+ 81             fw.write(Integer.<span class="ST4">parseInt</span>(latestUserId) + <span class="number">1</span> + <span class="string">&quot;&quot;</span>);
+ 82             fw.close();
+ 83             
+ 84             
+ 85             String users=<span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(<span class="string">&quot;</span><span class="string">Users.txt</span><span class="string">&quot;</span>)),StandardCharsets.<span class="ST1">UTF_8</span>);
+ 86            
+ 87             FileWriter fw1 = <span class="literal">new</span> FileWriter(<span class="string">&quot;</span><span class="string">Users.txt</span><span class="string">&quot;</span>);
+ 88             fw1.append(users+<span class="string">&quot;</span><span class="string">==</span><span class="string">&quot;</span>+userName+<span class="string">&quot;</span><span class="string">,</span><span class="string">&quot;</span>+(Integer.<span class="ST4">parseInt</span>(latestUserId) + <span class="number">1</span>));
+ 89             fw1.close();
+ 90             
+ 91             <span class="ST4">run</span>();
+ 92 
+ 93         } <span class="literal">else</span> <span class="literal">if</span> (input == <span class="number">2</span>) {
+ 94 
+ 95             <span class="comment">//sign in</span>
+ 96             System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">please enter userName then press enter:</span><span class="string">&quot;</span>);
+ 97             String inUName = scnIn.next();
+ 98          
+ 99 
+100             <span class="literal">if</span> (<span class="ST4">Login</span>(inUName) == <span class="literal">true</span>) {
+101                 System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">you are loggedIn</span><span class="literal">\n</span><span class="string">&quot;</span>);
+102                 User loggedInUser = <span class="literal">new</span> User(inUName,  Integer.<span class="ST4">parseInt</span>(<span class="ST1">us</span>.get(<span class="number">1</span>)));
+103                 System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">please select one of below options :</span><span class="literal">\n</span><span class="string">&quot;</span>
+104                         + <span class="string">&quot;</span><span class="string">1-Add a new qoute.</span><span class="literal">\n</span><span class="string">&quot;</span>
+105                         + <span class="string">&quot;</span><span class="string">2-voting an exist qoute</span><span class="literal">\n</span><span class="string">&quot;</span>
+106                         + <span class="string">&quot;</span><span class="string">3-devoting an exist qoute</span><span class="literal">\n</span><span class="string">&quot;</span>
+107                         + <span class="string">&quot;</span><span class="string">4-deleting a qoute</span><span class="literal">\n</span><span class="string">&quot;</span>
+108                         + <span class="string">&quot;</span><span class="string">5-log out</span><span class="literal">\n</span><span class="string">&quot;</span>
+109                 );
+110                 <span class="literal">int</span> i = scnIn.nextInt();
+111 
+112                 <span class="literal">switch</span> (i) {
+113                     <span class="literal">case</span> <span class="number">1</span>:
+114                         <span class="comment">//a method for craeting vote</span>
+115                         <span class="ST4">createQoute</span>(loggedInUser);
+116                         <span class="literal">break</span>;
+117                     <span class="literal">case</span> <span class="number">2</span>:
+118                         <span class="comment">//voter with (1,loggedInUser) parameter=logedInUser want to vote a qoute</span>
+119                         <span class="ST4">voter</span>(<span class="number">1</span>, loggedInUser);
+120                         <span class="literal">break</span>;
+121                     <span class="literal">case</span> <span class="number">3</span>:
+122                         <span class="comment">//voter with (2,loggedInUser) parameter=logedInUser want to dvote a qoute</span>
+123                         <span class="ST4">voter</span>(<span class="number">2</span>, loggedInUser);
+124                         <span class="literal">break</span>;
+125                     <span class="literal">case</span> <span class="number">4</span>:
+126                         <span class="comment">//deleting some vote</span>
+127                         <span class="ST4">delete</span>(<span class="string">&quot;</span><span class="string">qoutes.txt</span><span class="string">&quot;</span>);
+128                         <span class="literal">break</span>;
+129                     <span class="literal">case</span> <span class="number">5</span>:
+130                         <span class="comment">//logginig out</span>
+131                         <span class="ST4">run</span>();
+132                         <span class="literal">break</span>;
+133 
+134                     <span class="literal">default</span>:
+135                         <span class="literal">break</span>;
+136                 }
+137             } <span class="literal">else</span> {
+138                 System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">userName is not correct !</span><span class="string">&quot;</span>);
+139             }
+140 
+141         } <span class="literal">else</span> <span class="literal">if</span> (input == <span class="number">3</span>) {
+142             <span class="ST4">delete</span>(<span class="string">&quot;</span><span class="string">Users.txt</span><span class="string">&quot;</span>);
+143         } <span class="literal">else</span> <span class="literal">if</span> (input == <span class="number">4</span>) {
+144             String str = <span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(<span class="string">&quot;</span><span class="string">qoutes.txt</span><span class="string">&quot;</span>)), StandardCharsets.<span class="ST1">UTF_8</span>);
+145             List&lt;String&gt; qoutes = Arrays.<span class="ST4">asList</span>(str.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*==</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+146             System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">please enter the qoute id:</span><span class="string">&quot;</span>);
+147             <span class="literal">int</span> qouteId = scnIn.nextInt();
+148             List&lt;String&gt; selectedQoute = <span class="literal">null</span>;
+149             <span class="literal">for</span> (String userQoute : qoutes) {
+150                 selectedQoute = Arrays.<span class="ST4">asList</span>(userQoute.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*,</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+151                 <span class="literal">if</span> (Integer.<span class="ST4">parseInt</span>(selectedQoute.get(<span class="number">1</span>)) == qouteId) {
+152                     System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">the number of postive votes is:</span><span class="string">&quot;</span> + selectedQoute.get(<span class="number">2</span>) + <span class="string">&quot;</span><span class="literal">\n</span><span class="literal">\n</span><span class="string">&quot;</span>
+153                             + <span class="string">&quot;</span><span class="string">the number of negative votes is:</span><span class="string">&quot;</span> + selectedQoute.get(<span class="number">2</span>));
+154                     <span class="literal">break</span>;
+155                 }
+156             }
+157     <span class="comment">//any qoute has the structure like :qouteContent,qouteID,posVotes,negVotes,userID,savedOrNot,author</span>
+158         } <span class="literal">else</span> <span class="literal">if</span> (input == <span class="number">5</span>) {
+159             String str = <span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(<span class="string">&quot;</span><span class="string">qoutes.txt</span><span class="string">&quot;</span>)), StandardCharsets.<span class="ST1">UTF_8</span>);
+160             List&lt;String&gt; qoutes = Arrays.<span class="ST4">asList</span>(str.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*==</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+161             System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">please enter user id:</span><span class="string">&quot;</span>);
+162             <span class="literal">int</span> userID = scnIn.nextInt();
+163             List&lt;String&gt; selectedQoute = <span class="literal">null</span>;
+164             <span class="literal">for</span> (String userQoute : qoutes) {
+165                 selectedQoute = Arrays.<span class="ST4">asList</span>(userQoute.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*,</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+166                 <span class="literal">if</span> (Integer.<span class="ST4">parseInt</span>(selectedQoute.get(<span class="number">4</span>)) == userID) {
+167                     System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">the content of qoute is:</span><span class="string">&quot;</span> + selectedQoute.get(<span class="number">0</span>) + <span class="string">&quot;</span><span class="literal">\n</span><span class="string">&quot;</span>
+168                             + <span class="string">&quot;</span><span class="string">the author(owner) of the qoute is:</span><span class="string">&quot;</span> + selectedQoute.get(<span class="number">6</span>));
+169                     
+170                 }
+171             }
+172 
+173         } <span class="literal">else</span> <span class="literal">if</span> (input == <span class="number">6</span>) {
+174             String str = <span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(<span class="string">&quot;</span><span class="string">qoutes.txt</span><span class="string">&quot;</span>)), StandardCharsets.<span class="ST1">UTF_8</span>);
+175             List&lt;String&gt; qoutes = Arrays.<span class="ST4">asList</span>(str.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*==</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+176             System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">please enter string :</span><span class="string">&quot;</span>);
+177             String inputt= scnIn.next();
+178             List&lt;String&gt; selectedQoute = <span class="literal">null</span>;
+179             <span class="literal">for</span> (String userQoute : qoutes) {
+180                 selectedQoute = Arrays.<span class="ST4">asList</span>(userQoute.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*,</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+181                 <span class="literal">if</span> ( selectedQoute.get(<span class="number">0</span>).contains(inputt)) {
+182                     System.<span class="ST1">out</span>.println(selectedQoute.toString());
+183                 }
+184             }
+185 
+186         } <span class="literal">else</span> <span class="literal">if</span> (input == <span class="number">7</span>) {
+187              String str = <span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(<span class="string">&quot;</span><span class="string">qoutes.txt</span><span class="string">&quot;</span>)), StandardCharsets.<span class="ST1">UTF_8</span>);
+188             List&lt;String&gt; qoutes = Arrays.<span class="ST4">asList</span>(str.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*==</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+189             <span class="literal">int</span> qouteId = scnIn.nextInt();
+190             List&lt;String&gt; selectedQoute = <span class="literal">null</span>;
+191             <span class="literal">for</span> (String userQoute : qoutes) {
+192                 selectedQoute = Arrays.<span class="ST4">asList</span>(userQoute.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*,</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+193                 <span class="literal">if</span> (Integer.<span class="ST4">parseInt</span>(selectedQoute.get(<span class="number">1</span>)) == qouteId) {
+194                     System.<span class="ST1">out</span>.println(selectedQoute.toString());
+195                     <span class="literal">break</span>;
+196                 }
+197             }
+198             
+199 
+200         } <span class="literal">else</span> <span class="literal">if</span> (input == <span class="number">8</span>) {
+201             String str = <span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(<span class="string">&quot;</span><span class="string">qoutes.txt</span><span class="string">&quot;</span>)), StandardCharsets.<span class="ST1">UTF_8</span>);
+202             List&lt;String&gt; qoutes = Arrays.<span class="ST4">asList</span>(str.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*==</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+203             String inputt= scnIn.nextLine();
+204             List&lt;String&gt; selectedQoute = <span class="literal">null</span>;
+205             <span class="literal">for</span> (String userQoute : qoutes) {
+206                 selectedQoute = Arrays.<span class="ST4">asList</span>(userQoute.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*,</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+207                 <span class="literal">if</span> ( selectedQoute.get(<span class="number">6</span>).equals(inputt)) {
+208                     System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">qotes that you searched is :</span><span class="string">&quot;</span>+selectedQoute.toString());
+209                 }
+210             }
+211 
+212         } <span class="literal">else</span> <span class="literal">if</span> (input == <span class="number">9</span>) {
+213             System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">please enter the number of recents that you want to see:</span><span class="string">&quot;</span>);
+214             <span class="literal">int</span> k=scnIn.nextInt()+<span class="number">1</span>;
+215             
+216              String str = <span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(<span class="string">&quot;</span><span class="string">qoutes.txt</span><span class="string">&quot;</span>)), StandardCharsets.<span class="ST1">UTF_8</span>);
+217             List&lt;String&gt; qoutes = Arrays.<span class="ST4">asList</span>(str.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*==</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+218             
+219             String[]  topvoteQoutes=<span class="literal">new</span> String[qoutes.size()];
+220             <span class="literal">int</span>[]   topvotes=<span class="literal">new</span> <span class="literal">int</span>[qoutes.size()];
+221             
+222             List&lt;String&gt; selectedQoute = <span class="literal">null</span>;
+223             <span class="literal">int</span> i=<span class="number">0</span>;
+224             <span class="literal">for</span> (String userQoute : qoutes) {
+225                 selectedQoute = Arrays.<span class="ST4">asList</span>(userQoute.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*,</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+226                 <span class="comment">//computting difference of upvote and down vote for each node</span>
+227                 topvotes[i]=Integer.<span class="ST4">parseInt</span>(selectedQoute.get(<span class="number">2</span>))-Integer.<span class="ST4">parseInt</span>(selectedQoute.get(<span class="number">3</span>));
+228                 topvoteQoutes[i]=selectedQoute.get(<span class="number">0</span>);
+229                 i++;
+230             }
+231             <span class="comment">//using bubblesort</span>
+232             <span class="ST4">bubbleSort</span>(topvotes, topvoteQoutes,k);
+233             
+234             
+235             
+236 
+237         } <span class="literal">else</span> <span class="literal">if</span> (input == <span class="number">10</span>) {
+238             System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">please enter the number of recents that you want to see:</span><span class="string">&quot;</span>);
+239             <span class="literal">int</span> k=scnIn.nextInt();
+240             String str = <span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(<span class="string">&quot;</span><span class="string">qoutes.txt</span><span class="string">&quot;</span>)), StandardCharsets.<span class="ST1">UTF_8</span>);
+241             List&lt;String&gt; qoutes = Arrays.<span class="ST4">asList</span>(str.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*==</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+242             List&lt;String&gt; selectedQoute = <span class="literal">null</span>;   
+243             <span class="literal">try</span>{
+244             <span class="literal">for</span> (<span class="literal">int</span> i = k-<span class="number">1</span>; i&gt;=<span class="number">0</span>; i--) {
+245                 selectedQoute = Arrays.<span class="ST4">asList</span>(qoutes.get(i).split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*,</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+246                 System.<span class="ST1">out</span>.println(selectedQoute.get(<span class="number">0</span>));
+247             }
+248             }<span class="literal">catch</span>(java.lang.ArrayIndexOutOfBoundsException <span class="ST0">e</span>){
+249                 System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">there is not much enough qoute !</span><span class="string">&quot;</span> );
+250             }
+251 
+252         }
+253     }
+254     <span class="comment">//////a method for checking username </span>
+255     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">boolean</span> <span class="ST3">Login</span>(String inUName) <span class="literal">throws</span> IOException {
+256         <span class="ST4">fileCleaner</span>();
+257         String str = <span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(<span class="string">&quot;</span><span class="string">Users.txt</span><span class="string">&quot;</span>)), StandardCharsets.<span class="ST1">UTF_8</span>);
+258         List&lt;String&gt; ml = Arrays.<span class="ST4">asList</span>(str.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*==</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+259         <span class="literal">boolean</span> result = <span class="literal">false</span>;
+260 
+261         <span class="literal">for</span> (String string : ml) {
+262             <span class="literal">if</span> (string.contains(inUName)) {
+263                 result = <span class="literal">true</span>;
+264                 <span class="ST1">us</span> = Arrays.<span class="ST4">asList</span>(string.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*,</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+265             }
+266             <span class="ST4">fileCleaner</span>();
+267 
+268         }
+269 
+270 <span class="comment">//a method for creating nodes</span>
+271         <span class="literal">return</span> result;
+272     }
+273     <span class="comment">//any qoute has the structure like :qouteContent,qouteID,posVotes,negVotes,userID,savedOrNot,author</span>
+274     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">createQoute</span>(User user) <span class="literal">throws</span> IOException {
+275         <span class="ST4">fileCleaner</span>();
+276         <span class="comment">//reading the latest qoute id </span>
+277         String str = <span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(<span class="string">&quot;</span><span class="string">latestQID.txt</span><span class="string">&quot;</span>)), StandardCharsets.<span class="ST1">UTF_8</span>);
+278         Scanner scan = <span class="literal">new</span> Scanner(System.<span class="ST1">in</span>);
+279         <span class="literal">int</span> qid = Integer.<span class="ST4">parseInt</span>(str);
+280         <span class="comment">//creating new qoute and getting information from the user</span>
+281         Quote q = <span class="literal">new</span> Quote();
+282         q.setQID(qid + <span class="number">1</span>);
+283         q.setUID(user.getUserId());
+284          <span class="comment">///saving new user id in the file</span>
+285             FileWriter fw = <span class="literal">new</span> FileWriter(<span class="string">&quot;</span><span class="string">latestQID.txt</span><span class="string">&quot;</span>);
+286             fw.write((qid+ <span class="number">1</span>)+<span class="string">&quot;&quot;</span>);
+287             fw.close();
+288         System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">please enter the qoute content and press enter:</span><span class="string">&quot;</span>);
+289         q.setContent(scan.nextLine());
+290         System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">please enter the name of qoute owner (the person who said this qout):</span><span class="string">&quot;</span>);
+291         q.setQouteOwner(scan.nextLine());
+292         <span class="comment">//reading nodes and adding new qoute to the qoute file</span>
+293         String str1 = <span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(<span class="string">&quot;</span><span class="string">qoutes.txt</span><span class="string">&quot;</span>)), StandardCharsets.<span class="ST1">UTF_8</span>);
+294         FileWriter fileWriter = <span class="literal">new</span> FileWriter(<span class="string">&quot;</span><span class="string">qoutes.txt</span><span class="string">&quot;</span>);
+295 
+296         fileWriter.append(str1 + q.toSstring(q) + <span class="string">&quot;</span><span class="string">==</span><span class="string">&quot;</span>);
+297         fileWriter.close();
+298         <span class="comment">//printing information to the user</span>
+299         System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">the qoute saved by this info :</span><span class="string">&quot;</span>
+300                 + <span class="string">&quot;</span><span class="literal">\n</span><span class="string">qouteContent,qouteID,posVotes,negVotes,WriterID,savedOrNot,owner</span><span class="literal">\n</span><span class="string">&quot;</span> + q.toSstring(q));
+301         <span class="ST4">fileCleaner</span>();
+302     }
+303     <span class="comment">//a method for voting nodes</span>
+304     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">voter</span>(<span class="literal">int</span> i, User loggedInUser) <span class="literal">throws</span> IOException {
+305        
+306               
+307         <span class="ST4">fileCleaner</span>();
+308         <span class="comment">//geeting qoute id to can find it in file</span>
+309         System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">please enter qoute ID :</span><span class="string">&quot;</span>);
+310         Scanner in = <span class="literal">new</span> Scanner(System.<span class="ST1">in</span>);
+311         <span class="literal">int</span> qouteId = in.nextInt();
+312         <span class="comment">//checking that user voted this qoute or not </span>
+313         <span class="literal">if</span> (<span class="ST4">userVotedThisQoute</span>(qouteId, loggedInUser.getUserId()) == <span class="number">0</span>) {
+314             File f=<span class="literal">new</span> File(<span class="string">&quot;</span><span class="string">users</span><span class="literal">\\</span><span class="string">&quot;</span>+loggedInUser.getUserId()+<span class="string">&quot;</span><span class="string">.txt</span><span class="string">&quot;</span>);
+315             FileOutputStream fout2=<span class="literal">new</span> FileOutputStream(f);
+316             <span class="literal">byte</span>[] g=(qouteId+<span class="string">&quot;</span><span class="string">==</span><span class="string">&quot;</span>).getBytes();
+317             fout2.write(g);
+318             fout2.close();
+319             
+320             <span class="comment">//reading votes from file</span>
+321             String str = <span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(<span class="string">&quot;</span><span class="string">qoutes.txt</span><span class="string">&quot;</span>)), StandardCharsets.<span class="ST1">UTF_8</span>);
+322             <span class="comment">//writting votes in a list for flexability</span>
+323             List&lt;String&gt; qoutes = Arrays.<span class="ST4">asList</span>(str.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*==</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+324 
+325             <span class="comment">//a counter for knowing wich qoute should be vote </span>
+326             <span class="literal">int</span> counter = <span class="number">0</span>;
+327             <span class="comment">//</span>
+328             List&lt;String&gt; selectedQoute = <span class="literal">null</span>;
+329             <span class="literal">for</span> (String userQoute : qoutes) {
+330                 counter++;
+331                 selectedQoute = Arrays.<span class="ST4">asList</span>(userQoute.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*,</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+332                 <span class="literal">if</span> (Integer.<span class="ST4">parseInt</span>(selectedQoute.get(<span class="number">1</span>)) == qouteId) {
+333                     System.<span class="ST1">out</span>.println(selectedQoute.toString());
+334                     System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">the qoute is found :</span><span class="literal">\n</span><span class="string">&quot;</span> + selectedQoute.get(<span class="number">0</span>) + <span class="string">&quot;</span><span class="string"> and the owner is: </span><span class="string">&quot;</span> + selectedQoute.get(<span class="number">6</span>));
+335                     <span class="literal">break</span>;
+336 
+337                 } <span class="literal">else</span> {
+338                     System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">there is no qoute with this id !!</span><span class="string">&quot;</span>);
+339                 }
+340             }
+341             <span class="comment">//getting the postive and negative votes to change</span>
+342             <span class="literal">int</span> pVote = Integer.<span class="ST4">parseInt</span>(selectedQoute.get(<span class="number">2</span>));
+343             System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">postive vote:</span><span class="string">&quot;</span> + pVote);
+344             <span class="literal">int</span> nVote = Integer.<span class="ST4">parseInt</span>(selectedQoute.get(<span class="number">3</span>));
+345             System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">negetive votes:</span><span class="string">&quot;</span> + nVote);
+346             <span class="comment">//voting</span>
+347             <span class="literal">if</span> (i == <span class="number">1</span>) {
+348                 pVote += <span class="number">1</span>;
+349                 <span class="literal">if</span> (pVote &gt;= nVote + <span class="number">3</span>) {
+350                     <span class="ST4">saveqoute</span>(selectedQoute);
+351                     selectedQoute.set(<span class="number">5</span>,<span class="string">&quot;</span><span class="string">1</span><span class="string">&quot;</span>);
+352                 }
+353                 System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">the posetive vote incresead from  </span><span class="string">&quot;</span> + (pVote - <span class="number">1</span>) + <span class="string">&quot;</span><span class="string">  to  </span><span class="string">&quot;</span> + pVote);
+354             } <span class="literal">else</span> <span class="comment">//devoting</span>
+355             {
+356                 <span class="literal">if</span> (i == <span class="number">2</span>) {
+357                     <span class="literal">if</span> (pVote &gt;= nVote + <span class="number">3</span>) {
+358                         <span class="literal">if</span> (!(nVote - <span class="number">1</span> &gt;= pVote + <span class="number">3</span>)) {
+359                             <span class="ST4">delete</span>(<span class="string">&quot;</span><span class="string">savedQoutes</span><span class="string">&quot;</span>,Integer.<span class="ST4">parseInt</span>(selectedQoute.get(<span class="number">1</span>)));
+360                             selectedQoute.set(<span class="number">5</span>,<span class="string">&quot;</span><span class="string">0</span><span class="string">&quot;</span>);
+361                         } <span class="literal">else</span> {
+362                         }
+363                     } <span class="literal">else</span> {
+364                     }
+365                     nVote += <span class="number">1</span>;
+366                     System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">the negative vote decreased from  </span><span class="string">&quot;</span> + (nVote - <span class="number">1</span>) + <span class="string">&quot;</span><span class="string">  to  </span><span class="string">&quot;</span> + nVote);
+367                 } <span class="comment">//wrrong</span>
+368                 <span class="literal">else</span> {
+369                     System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">the input number is not correct !</span><span class="string">&quot;</span>);
+370                 }
+371             }
+372             <span class="comment">//setting the vote to the text</span>
+373             selectedQoute.set(<span class="number">2</span>, pVote + <span class="string">&quot;&quot;</span>);
+374             selectedQoute.set(<span class="number">3</span>, nVote + <span class="string">&quot;&quot;</span>);
+375 
+376             qoutes.set(counter - <span class="number">1</span>, selectedQoute.get(<span class="number">0</span>) + <span class="string">&quot;</span><span class="string">,</span><span class="string">&quot;</span> + selectedQoute.get(<span class="number">1</span>) + <span class="string">&quot;</span><span class="string">,</span><span class="string">&quot;</span> + selectedQoute.get(<span class="number">2</span>) + <span class="string">&quot;</span><span class="string">,</span><span class="string">&quot;</span> + selectedQoute.get(<span class="number">3</span>) + <span class="string">&quot;</span><span class="string">,</span><span class="string">&quot;</span> + selectedQoute.get(<span class="number">4</span>) + <span class="string">&quot;</span><span class="string">,</span><span class="string">&quot;</span> + selectedQoute.get(<span class="number">5</span>) + <span class="string">&quot;</span><span class="string">,</span><span class="string">&quot;</span> + selectedQoute.get(<span class="number">6</span>));
+377 
+378             String res = <span class="string">&quot;&quot;</span>;
+379             <span class="literal">for</span> (String qoute : qoutes) {
+380                 res += qoute + <span class="string">&quot;</span><span class="string">==</span><span class="string">&quot;</span>;
+381             }
+382             <span class="comment">///rewritting the voted nodes</span>
+383             FileWriter fileWriter;
+384 
+385             fileWriter = <span class="literal">new</span> FileWriter(<span class="string">&quot;</span><span class="string">qoutes.txt</span><span class="string">&quot;</span>);
+386             fileWriter.write(res);
+387             fileWriter.close();
+388         } <span class="literal">else</span> {
+389             <span class="comment">//if the user voted this qoute once he/she can&#39;t voe again</span>
+390             System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">you can not vote this qoute because you voted this qoute!</span><span class="string">&quot;</span>);
+391         }
+392 
+393     }
+394     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">delete</span>(String path) <span class="literal">throws</span> IOException {
+395         <span class="ST4">fileCleaner</span>();
+396         Scanner input = <span class="literal">new</span> Scanner(System.<span class="ST1">in</span>);
+397         System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">please enter the id that you want to delete :</span><span class="string">&quot;</span>);
+398         <span class="literal">int</span> id = input.nextInt();
+399         <span class="comment">//reading nodes from file</span>
+400         String str = <span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(path)), StandardCharsets.<span class="ST1">UTF_8</span>);
+401         <span class="comment">//writting nodes in a list for flexability</span>
+402         List&lt;String&gt; nodes = Arrays.<span class="ST4">asList</span>(str.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*==</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+403         <span class="comment">//a counter for knowing wich node should be taken </span>
+404         <span class="literal">int</span> counter = <span class="number">0</span>;
+405         List&lt;String&gt; selectedQoute = <span class="literal">null</span>;
+406         <span class="literal">for</span> (String userQoute : nodes) {
+407             counter++;
+408             selectedQoute = Arrays.<span class="ST4">asList</span>(userQoute.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*,</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+409             <span class="literal">if</span> (id == Integer.<span class="ST4">parseInt</span>(selectedQoute.get((<span class="number">1</span>)))) {
+410                 nodes.set(counter - <span class="number">1</span>, <span class="string">&quot;&quot;</span>);
+411                 String res = <span class="string">&quot;&quot;</span>;
+412                 <span class="literal">for</span> (String qoute : nodes) {
+413                     res += qoute + <span class="string">&quot;</span><span class="string">==</span><span class="string">&quot;</span>;
+414                 }
+415              <span class="ST4">fileCleaner</span>();
+416                 <span class="comment">///rewritting the nodes </span>
+417                 FileWriter fileWriter;
+418                 fileWriter = <span class="literal">new</span> FileWriter(<span class="string">&quot;</span><span class="string">path</span><span class="string">&quot;</span>);
+419                 fileWriter.write(res);
+420                 fileWriter.close();
+421                 System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">the node was deleted successfully</span><span class="string">&quot;</span>);
+422 
+423                 <span class="literal">break</span>;
+424 
+425             } <span class="literal">else</span> <span class="literal">if</span> (counter == nodes.size()) {
+426                 System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">there is no qoute with this id !!</span><span class="string">&quot;</span>);
+427             }
+428         }
+429     }
+430     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">delete</span>(String path,<span class="literal">int</span> id) <span class="literal">throws</span> IOException {
+431         <span class="ST4">fileCleaner</span>();
+432         <span class="comment">//reading nodes from file</span>
+433         String str = <span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(path)), StandardCharsets.<span class="ST1">UTF_8</span>);
+434         <span class="comment">//writting nodes in a list for flexability</span>
+435         List&lt;String&gt; nodes = Arrays.<span class="ST4">asList</span>(str.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*==</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+436         <span class="comment">//a counter for knowing wich node should be taken </span>
+437         <span class="literal">int</span> counter = <span class="number">0</span>;
+438         List&lt;String&gt; selectedQoute = <span class="literal">null</span>;
+439         <span class="literal">for</span> (String userQoute : nodes) {
+440             counter++;
+441             selectedQoute = Arrays.<span class="ST4">asList</span>(userQoute.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*,</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+442             <span class="literal">if</span> (id == Integer.<span class="ST4">parseInt</span>(selectedQoute.get((<span class="number">1</span>)))) {
+443                 nodes.set(counter - <span class="number">1</span>, <span class="string">&quot;&quot;</span>);
+444                 String res = <span class="string">&quot;&quot;</span>;
+445                 <span class="literal">for</span> (String qoute : nodes) {
+446                     res += qoute + <span class="string">&quot;</span><span class="string">==</span><span class="string">&quot;</span>;
+447                 }
+448              <span class="ST4">fileCleaner</span>();
+449                 <span class="comment">///rewritting the nodes </span>
+450                 FileWriter fileWriter;
+451                 fileWriter = <span class="literal">new</span> FileWriter(<span class="string">&quot;</span><span class="string">path</span><span class="string">&quot;</span>);
+452                 fileWriter.write(res);
+453                 fileWriter.close();
+454                 System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">the node was deleted successfully</span><span class="string">&quot;</span>);
+455 
+456                 <span class="literal">break</span>;
+457 
+458             } <span class="literal">else</span> <span class="literal">if</span> (counter == nodes.size()) {
+459                 System.<span class="ST1">out</span>.println(<span class="string">&quot;</span><span class="string">there is no qoute with this id !!</span><span class="string">&quot;</span>);
+460             }
+461         }
+462     }
+463     <span class="comment">//a method for cheking that user voted this qoute id or not</span>
+464     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">int</span> <span class="ST3">userVotedThisQoute</span>(<span class="literal">int</span> qouteId, <span class="literal">int</span> userId) <span class="literal">throws</span> IOException {
+465         <span class="ST4">fileCleaner</span>();
+466         <span class="literal">int</span> a = <span class="number">0</span>;
+467         String userVotedQoutesID = <span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(<span class="string">&quot;</span><span class="string">users</span><span class="literal">\\</span><span class="string">&quot;</span>+userId +<span class="string">&quot;</span><span class="string">.txt</span><span class="string">&quot;</span>)), StandardCharsets.<span class="ST1">UTF_8</span>);
+468         List&lt;String&gt; qouteIDS = Arrays.<span class="ST4">asList</span>(userVotedQoutesID.split(<span class="string">&quot;</span><span class="literal">\\</span><span class="string">s*,</span><span class="literal">\\</span><span class="string">s*</span><span class="string">&quot;</span>));
+469         <span class="literal">for</span> (String qoute : qouteIDS) {
+470             <span class="literal">if</span> (qouteId == Integer.<span class="ST4">parseInt</span>(qoute)) {
+471                 a = <span class="number">1</span>;
+472             }
+473         }
+474 
+475         <span class="literal">return</span> a;
+476 
+477     }
+478     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">saveqoute</span>(List&lt;String&gt; selectedQoute) <span class="literal">throws</span> IOException {
+479         
+480         <span class="ST4">fileCleaner</span>();
+481         String str=<span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(<span class="string">&quot;</span><span class="string">savedQoutes</span><span class="string">&quot;</span>)),StandardCharsets.<span class="ST1">UTF_8</span>);
+482         FileWriter SaveQoute=<span class="literal">new</span> FileWriter(<span class="string">&quot;</span><span class="string">savedQoutes</span><span class="string">&quot;</span>);
+483         SaveQoute.write(str+selectedQoute.get(<span class="number">0</span>)+<span class="string">&quot;</span><span class="string">,</span><span class="string">&quot;</span>+selectedQoute.get(<span class="number">1</span>)+<span class="string">&quot;</span><span class="string">,</span><span class="string">&quot;</span>+selectedQoute.get(<span class="number">2</span>)+<span class="string">&quot;</span><span class="string">,</span><span class="string">&quot;</span>+selectedQoute.get(<span class="number">3</span>)+<span class="string">&quot;</span><span class="string">,</span><span class="string">&quot;</span>+selectedQoute.get(<span class="number">4</span>)+<span class="string">&quot;</span><span class="string">,</span><span class="string">&quot;</span>+selectedQoute.get(<span class="number">5</span>)+<span class="string">&quot;</span><span class="string">,</span><span class="string">&quot;</span>+selectedQoute.get(<span class="number">6</span>)+<span class="string">&quot;</span><span class="string">==</span><span class="string">&quot;</span>);
+484         SaveQoute.close();
+485         <span class="ST4">fileCleaner</span>();
+486 
+487         <span class="literal">throw</span> <span class="literal">new</span> UnsupportedOperationException(<span class="string">&quot;</span><span class="string">Not supported yet.</span><span class="string">&quot;</span>); <span class="comment">//To change body of generated methods, choose Tools | Templates.</span>
+488     }
+489     <span class="literal">public</span>  <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">bubbleSort</span>(<span class="literal">int</span>[] arr,String[] qoute,<span class="literal">int</span> k) {  
+490         <span class="literal">int</span> n = arr.<span class="ST5">length</span>;  
+491         <span class="literal">int</span> temp = <span class="number">0</span>;
+492         String tmpstr=<span class="string">&quot;&quot;</span>;
+493          <span class="literal">for</span>(<span class="literal">int</span> i=<span class="number">0</span>; i &lt; n; i++){  
+494                  <span class="literal">for</span>(<span class="literal">int</span> j=<span class="number">1</span>; j &lt; (n-i); j++){  
+495                           <span class="literal">if</span>(arr[j-<span class="number">1</span>] &gt; arr[j]){  
+496                                  <span class="comment">//swap elements  </span>
+497                                  temp = arr[j-<span class="number">1</span>]; 
+498                                  tmpstr=qoute[j-<span class="number">1</span>];
+499                                  
+500                                  arr[j-<span class="number">1</span>] = arr[j]; 
+501                                  qoute[j-<span class="number">1</span>]=qoute[j];
+502                                  
+503                                  arr[j] = temp;  
+504                                  qoute[j]=tmpstr;
+505                          }  
+506                           
+507                  }  
+508          }
+509          <span class="literal">for</span> (<span class="literal">int</span> i = arr.<span class="ST5">length</span>-<span class="number">1</span>; i &gt; arr.<span class="ST5">length</span>-k; i--) {
+510              System.<span class="ST1">out</span>.println(qoute[i]+<span class="string">&quot;</span><span class="string">  and the vote is :</span><span class="string">&quot;</span>+arr[i]);
+511        }
+512   
+513     }  
+514     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">fileCleaner</span>() <span class="literal">throws</span> IOException{
+515         String path1=<span class="string">&quot;</span><span class="string">qoutes.txt</span><span class="string">&quot;</span>;
+516         String path2=<span class="string">&quot;</span><span class="string">Users.txt</span><span class="string">&quot;</span>;
+517         String path3=<span class="string">&quot;</span><span class="string">savedQoutes.txt</span><span class="string">&quot;</span>;
+518         String[] content=<span class="literal">new</span> String[<span class="number">3</span>];
+519         content[<span class="number">0</span>]=<span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(path1)),StandardCharsets.<span class="ST1">UTF_8</span>);
+520         content[<span class="number">1</span>]=<span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(path2)),StandardCharsets.<span class="ST1">UTF_8</span>);
+521         content[<span class="number">2</span>]=<span class="literal">new</span> String(Files.<span class="ST4">readAllBytes</span>(Paths.<span class="ST4">get</span>(path3)),StandardCharsets.<span class="ST1">UTF_8</span>);
+522         
+523         <span class="literal">for</span>(<span class="literal">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++){
+524             <span class="literal">if</span>(content[i].contains(<span class="string">&quot;</span><span class="string">====</span><span class="string">&quot;</span>)){
+525                 content[i]=content[i].replace(<span class="string">&quot;</span><span class="string">====</span><span class="string">&quot;</span>, <span class="string">&quot;</span><span class="string">==</span><span class="string">&quot;</span>);
+526             }
+527             <span class="literal">if</span>(content[i].startsWith(<span class="string">&quot;</span><span class="string">==</span><span class="string">&quot;</span>)){
+528               content[i] = content[i].replaceFirst(<span class="string">&quot;</span><span class="string">==</span><span class="string">&quot;</span>, <span class="string">&quot;&quot;</span>);
+529             }
+530         }
+531         FileWriter fw1=<span class="literal">new</span> FileWriter(path1);
+532         fw1.write(content[<span class="number">0</span>]);
+533         fw1.close();
+534         
+535         FileWriter fw2=<span class="literal">new</span> FileWriter(path2);
+536         fw2.write(content[<span class="number">1</span>]);
+537         fw2.close();
+538         
+539         FileWriter fw3=<span class="literal">new</span> FileWriter(path3);
+540         fw3.write(content[<span class="number">2</span>]);
+541         fw3.close();
+542 
+543     }
+544 
+545 }
+546 
+547 
+</pre></body>
+</html>
